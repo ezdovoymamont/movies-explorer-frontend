@@ -5,11 +5,7 @@ function SearchForm() {
   return (
     <section className="searchForm searchForm__page">
         <div className="searchForm__container">
-        <form
-          action="#"
-          noValidate
-          className="searchForm__form"
-        >
+        <form action="#" className="searchForm__form">
           <input
             type="text"
             className="searchForm__input"

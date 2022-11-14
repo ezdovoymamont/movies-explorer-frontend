@@ -4,17 +4,13 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import "./App";
-import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Login from "../UserProfile/Login/Login";
 import Register from "../UserProfile/Register/Register";
 import Profile from "../UserProfile/Profile/Profile";
 import Error404 from "../Error404/Error404";
-import HeaderFilms from "../Header/HeaderFilms/HeaderFilms";
-import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-
-import Footer from "../Footer/Footer";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
 
@@ -66,8 +62,6 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <HeaderFilms />
-                  <SearchForm />
                   <MoviesCardList />
                 </>
               }
@@ -77,9 +71,7 @@ function App() {
               path="/saved-movies" // todo rename
               element={
                 <>
-                  <HeaderFilms />
-                  <SearchForm />
-                  <MoviesCardList />
+                  <SavedMovies />
                 </>
               }
             />

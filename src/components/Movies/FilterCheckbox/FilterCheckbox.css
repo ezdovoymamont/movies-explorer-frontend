@@ -1,8 +1,5 @@
 .filterCheckbox{
     background-color: #202020;
-    /* height: 100vh;
-    margin: 0 auto;
-    padding: 70px 0 0; */
     font-family: "Inter";
 }
 
@@ -22,62 +19,37 @@
 }
   
 .checkbox {
+    appearance: none;
+    width: 2.5em;
+    height: 1.5em;
+    border-radius: 20px; 
+    background: #EBEBEB; 
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all .2s ease-in-out;
+}
+
+.checkbox:checked{
+    background: #3ddc84;
+}
+  
+.checkbox:after{
     position: absolute;
-    z-index: -1; 
-    opacity: 0;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: #FFFFFF;
+    transform: scale(.8);
+    left: 0;
+    align-items: center;
+    transition: all .2s ease-in-out;
+    
 }
 
-.checkbox {
-    content: "";
-    display: inline-block;
-    flex-grow: 0;
-    flex-shrink: 0;
-    border-radius: 20px;
-    width: 36px;
-    height: 20px;
-    background-image: url(../../../images/checkbox.svg);
-    background-position: right;
-    background-size: 50% 50%;
-    background-repeat: no-repeat;
-    background-color: #3ddc84;
-}
-
-.checkbox + label {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-} 
-  
-.checkbox + label {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-}
-  
-.checkbox + label::before {
-    content: "";
-    display: inline-block;
-    flex-grow: 0;
-    flex-shrink: 0;
-    border-radius: 20px;
-    width: 36px;
-    height: 20px;
-    background-image: url(../../../images/checkbox.svg);
-    background-position: right;
-    background-size: 60% 90%;
-    background-repeat: no-repeat;
-    background-color: #3ddc84;
-}
-  
-.checkbox:checked + label::before {
-    border-radius: 20px;
-    background: #ebebeb;
-    background-image: url(../../../images/checkbox.svg);
-    background-position: left;
-    background-size: 90% 60%;
-    background-repeat: no-repeat;
+.checkbox:checked:after{
+    left: calc(100% - 1.5em);
 }
   
 @media screen and (max-width: 320px) {

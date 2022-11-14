@@ -4,13 +4,13 @@ function FilterCheckbox() {
 
   return (
     <div className="filterCheckbox filterCheckbox__container">
-        <input
+      <input
           type="checkbox"
           className="checkbox"
           name="filterCheckbox"
           defaultValue="yes"
         />
-      <label htmlFor="checkbox"></label>
+      <label for="checkbox"></label>
       <p className="filterCheckbox__title">Короткометражки</p>
     </div>
   );

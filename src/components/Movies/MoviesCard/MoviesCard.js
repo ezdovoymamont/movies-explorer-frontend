@@ -1,6 +1,5 @@
 import "./MoviesCard.css"
 import imgFilm from "../../../images/imgFilm.svg"
-import save from "../../../images/save.svg"
 
 function MoviesCard() {
 
@@ -10,7 +9,7 @@ function MoviesCard() {
 
 
     return(
-        <div className="movieCard__item">
+      <li className="movieCard__item">
         <div className="movieCard__block">
           <div className="movieCard__description">
             <h3 className="movieCard__title">33 слова о дизайне</h3>
@@ -33,8 +32,8 @@ function MoviesCard() {
             1ч 47м
           </p>
         </div>
-        <img src={imgFilm} alt="Заставка фильма" className='movieCard__image' />
-        </div>
+        <img src={imgFilm} alt="Заставка фильма" className="movieCard__image" />
+      </li>
         
        
     );
