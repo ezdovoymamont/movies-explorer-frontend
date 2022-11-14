@@ -71,6 +71,8 @@
     margin-left: auto;
     align-self: flex-end; 
     display: flex;
+    list-style-type: none;
+
 }
   
  
@@ -122,16 +124,22 @@
 
 @media screen and (max-width: 768px) {
 
-    /* .headerFilmsMenu__container,.headerFilms1 {
+    /* .headerFilms1 {
         width: calc(100% - 30px * 2);
-    } */
+    }  */
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        max-width: 700px;
+    }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
 
-    /* .headerFilmsMenu__container,.headerFilms1 {
-        width: calc(100% - 10px * 2);
-    } */
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        max-width: 480px;
+    }
+    .headerFilms1 {
+        width: calc(100% - 14px * 2);
+    } 
 }
 
 
@@ -139,7 +147,8 @@
     cursor: pointer;
     display: inline-block;
     float: right;
-    padding: 28px 20px;
+    padding: 0;
+    /* padding: 28px 20px; */
     position: relative;
     user-select: none;
 }
@@ -202,6 +211,16 @@
     }
 }
 
+@media screen and (max-width: 400px) {
+
+    /* .headerFilms1 {
+      
+    }  */
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        width: calc(100% + 40px * 2);
+    }
+}
+
 @media screen and (max-width: 768px) {
 
     .headerFilmsMenu__container {  
@@ -212,10 +231,10 @@
         align-content: center;
         justify-content: center;
         box-sizing: border-box;
-        right: 0;
-        top: 0;                           /*????*/
-        z-index: 2;
         width: 520px;
+        right: 0;
+        top: 0;                         
+        z-index: 2;
         height: 100%;
         box-sizing: border-box;
         background-color: #202020;
@@ -234,6 +253,7 @@
         align-items: center;
         max-height: 0;
     }
+    
 
     .menu-btn:checked ~ .headerFilmsMenu__container{
         display: flex;
@@ -267,10 +287,11 @@
   
     .headerFilms__account {
         position: absolute;
-        left: 40%;
+        left: 45%;
         bottom: 90px;
         display: flex;
         align-items: center;
+        align-content: flex-end;
         justify-content: center;
         border: 0;
         border-radius: 20px;
@@ -284,22 +305,8 @@
     .headerFilms__account:hover {
         opacity: 0.8;
     } 
-
-    /* .header li {
-      float: left;
-    }
-    .header li a {
-      padding: 20px 30px;
-    }
-    .header .menu {
-      clear: none;
-      float: right;
-      max-height: none;
-    } */
 }
   
-
-
 
 
 
