@@ -1,0 +1,321 @@
+.headerFilms {
+    background-color: #202020;
+    font-family: "Inter";
+    padding-top: 20px;
+    padding-bottom: 18px;
+}
+
+.headerFilms1 {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1140px;
+    width: calc(100% - 70px * 2);
+}
+
+.headerFilms__container {
+    display: flex;
+    /* flex-wrap: wrap; */
+    align-items: center;
+    width: 100%;
+    /* margin: 0 auto; */
+    max-width: 1140px;
+     /* justify-content: center;
+    align-content: center;  */
+}
+.headerFilms_fill{
+    margin-right: auto;
+}
+
+.headerFilmsMenu__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-left: auto;
+    /* flex-wrap: wrap; */
+    /* align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1140px;
+    justify-content: center; */
+}
+
+.headerMain__logo {
+    display: inline-block;
+    width: 40px;
+    height: 38px; 
+    background: url(../../../images/logo_header.svg) no-repeat;
+    z-index: 2;
+    margin-right: auto;
+}
+  
+.headerFilms__links {
+    display: flex;
+    list-style-type: none;
+    margin: 0 0 0 44px;
+    gap: 18px;
+    
+    /* display: flex;
+    list-style-type: none;
+    margin: 0 0 0 44px;
+    padding: 0;
+    gap: 18px;
+    justify-content: center;
+    width: 100%; */
+}
+.headerFilms__accountItem {
+    /* margin-right: 0;
+    align-content: flex-end; */
+    /* display: flex;*/
+    margin-left: auto;
+    align-self: flex-end; 
+    display: flex;
+    list-style-type: none;
+
+}
+  
+ 
+.headerFilms__link {
+    /* position: relative; */
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    line-height: 3;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: opacity 0.4s linear;
+    cursor: pointer;
+}
+
+.headerFilms__link-menu {
+    display: none;
+}
+
+.headerFilms__link {
+    opacity: 0.8;
+}
+  
+.headerFilms__account {
+    display: block;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+    background: #313131;
+    transition: opacity 0.4s linear;
+    cursor: pointer;
+    justify-content: right;
+}
+
+.headerFilms__account:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 1280px) {
+    /* .headerFilmsMenu__container {
+      width: calc(100% - 70px * 2);
+      margin: 0;
+    } */
+}
+
+@media screen and (max-width: 768px) {
+
+    /* .headerFilms1 {
+        width: calc(100% - 30px * 2);
+    }  */
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        max-width: 700px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        max-width: 480px;
+    }
+    .headerFilms1 {
+        width: calc(100% - 14px * 2);
+    } 
+}
+
+
+.menu-icon {
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 0;
+    /* padding: 28px 20px; */
+    position: relative;
+    user-select: none;
+}
+  
+
+.navicon {
+    background: white;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: .2s ease-out;
+    width: 18px;
+   
+}
+
+.navicon:before,
+.navicon:after {
+  background: white;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.navicon:before {
+  top: 5px;
+}
+.navicon:after {
+  top: -5px;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon {
+    background: transparent;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:before {
+    transform: rotate(-45deg);
+}
+  
+.menu-btn:checked ~ .menu-icon .navicon:after {
+    transform: rotate(45deg);
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:before,
+.menu-btn:checked ~ .menu-icon .navicon:after {
+    top: 0;
+}
+    
+.menu-btn {
+    display: none;
+}
+  
+
+@media (min-width: 600px) {
+
+    .menu-icon {
+      display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    /* .headerFilms1 {
+      
+    }  */
+    .menu-btn:checked ~ .headerFilmsMenu__container {
+        width: calc(100% + 40px * 2);
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .headerFilmsMenu__container {  
+        position: fixed;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 520px;
+        right: 0;
+        top: 0;                         
+        z-index: 2;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: #202020;
+    }
+
+    .menu-icon {
+        display: inline-block;
+        z-index: 3;
+        order: 3;
+    }
+       
+    .headerFilms__links {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-height: 0;
+    }
+    
+
+    .menu-btn:checked ~ .headerFilmsMenu__container{
+        display: flex;
+    }
+
+    .menu-btn:checked ~ .headerFilmsMenu__container .headerFilms__links{
+        display: flex;
+    }
+
+    .menu-btn:checked ~ .headerFilmsMenu__container .headerFilms__link-menu {
+        display: flex;
+    }
+
+    .headerFilms__link,.headerFilms__link-menu {
+        font-weight: 500;
+        font-style: normal;
+        font-size: 18px;
+        line-height: 22px;
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    .headerFilms__link:not(:last-child) {
+        margin-bottom: 28px;
+    }
+
+    .headerFilms__link_type_active {
+        border-bottom: 1px solid #FFFFFF;
+        padding-bottom: 4px;
+    }
+  
+    .headerFilms__account {
+        position: absolute;
+        left: 45%;
+        bottom: 90px;
+        display: flex;
+        align-items: center;
+        align-content: flex-end;
+        justify-content: center;
+        border: 0;
+        border-radius: 20px;
+        width: 100px;
+        height: 32px;
+        font-style: normal;
+        font-size: 14px;
+        line-height: 16px;
+    }
+  
+    .headerFilms__account:hover {
+        opacity: 0.8;
+    } 
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+

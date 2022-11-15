@@ -1,0 +1,160 @@
+.register {
+    background-color: #202020;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 70px 0 70px;
+    font-family: "Inter";
+}
+
+.register__header {
+    height: 38px;
+    background: url(../../../images/logo_header.svg) no-repeat;
+}
+
+.register__form {
+    margin: 0 auto 0;
+    max-width: 396px;
+    display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.register__title {
+    margin: 40px 0 59px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+}
+
+.register__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 7px;
+}
+
+.register__label {
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #8B8B8B;
+}
+
+.register__input {
+    height: 32px;
+    display: block;
+    margin-bottom: 24px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #424242;
+    padding: 0;
+    width: 100%;
+    background-color: #202020;
+    color: #FFFFFF;
+}
+
+.register__save-button {
+    margin: 179px auto 16px;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    height: 45px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    background: #4285f4;
+    transition: 0.3s linear;
+    cursor: pointer
+}
+
+.register__save-button:hover {
+	opacity: 0.8;
+}
+
+.register__input-error {
+    display: block;
+    margin-bottom: 10px;
+    min-height: 24px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ee3465;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.block__login {
+    display: flex;
+    justify-content: center;
+}
+
+.block__login-text {    
+    margin: 0 6px 0 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #8b8b8b;
+}
+
+.block__login-link {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #4285f4;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 470px) {
+    .register {
+        margin: 0;
+        padding: 0;
+    }
+
+    .register__form {
+        margin: 0 auto;
+        padding-top: 56px;
+        max-width: 260px;
+    }
+
+    .register__header {
+        display: block;
+        margin: 0 auto 50px;
+        width: 38px;
+    }
+  
+    .register__title {
+        margin: 0 0 80px;
+        text-align: center;
+    }
+    
+    .register__save-button {
+        margin-bottom: 14px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .block__login {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .block__login-text {
+        margin: 0 7px 0 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .block__login-link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
