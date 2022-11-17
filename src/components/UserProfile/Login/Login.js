@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import {useFormWithValidation} from "../../../utils/useFormWithValidation";
-// import logo_header from "../../../images/logo_header.svg"
 
 
 function Login({onLogin, loginError}) {
@@ -14,9 +13,9 @@ function Login({onLogin, loginError}) {
     onLogin( email, password);
     validation.resetForm();
   };
+
   return (
     <div className="login">
-      {/* <img src={logo_header} alt="Логотип" className="login__header" /> */}
       <form className="login__form" onSubmit={handleSubmit}>
         <header className="login__header"></header>
         <h2 className="login__title">Рады видеть!</h2>
@@ -41,7 +40,7 @@ function Login({onLogin, loginError}) {
         <span className="login__label">Пароль</span>
         <input
           className="login__input"
-          minLength="3" // todo must be 10
+          minLength="10"
           maxLength="50"
           type="password"
           name="password"
@@ -49,13 +48,9 @@ function Login({onLogin, loginError}) {
           required
           onChange={validation.handleChange}
           value={validation?.values?.password || ''}
-          required
         />
-        <span className="login__input-error" />
-        </label>
-
-        {/*todo верстка*/}
         <span className="login__input-error" >{loginError}</span>
+        </label>
 
         <button
             type="submit"

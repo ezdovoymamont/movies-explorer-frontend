@@ -57,7 +57,7 @@ function Register({onRegister, registerError}) {
         <span className="register__label">Пароль</span>
         <input
           className="register__input"
-          minLength="3" //todo must be 10
+          minLength="10"
           maxLength="50"
           type="password"
           name="password"

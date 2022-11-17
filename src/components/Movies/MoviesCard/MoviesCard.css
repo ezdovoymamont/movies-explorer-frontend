@@ -35,8 +35,8 @@
     border: 2px solid #FFFFFF;
     border-radius: 50%;
     padding: 0;
-    width: 16px;
-    height: 16px;
+    width: 30px;
+    height: 30px;
     font: inherit;
     color: inherit;
     background-color: transparent;
@@ -45,25 +45,18 @@
 
 .movieCard__button_save {
     border: none;
-    border-radius: 50px;
-    width: 30px;
-    height: 30px;
-    background-color: #2be080;
-    background: url(../../../images/save.svg) no-repeat center;
+    background: url(../../../images/save1.svg) no-repeat center;
 }
 
  .movieCard__button_unlock {
-    background-color: #313131;
-    background: url(../../../images/save_unlock.svg) no-repeat center;
+    border: none;
+    background: url(../../../images/save_unlock1.svg) no-repeat center; 
 }
 
 .movieCard__button_delete {
     border: none;
-    border-radius: 50px;
-    width: 30px;
-    height: 30px;
-    background-color: #313131;
-    background: url(../../../images/closeCard.svg) no-repeat center;
+    /* background-color: #313131; */
+    background: url(../../../images/closeCard1.svg) no-repeat center;
 }
 
 .movieCard__time {

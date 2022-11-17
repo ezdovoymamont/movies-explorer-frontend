@@ -12,7 +12,7 @@ function MoviesCard({
 
     let saveButtonClassName = isSaved
       ? "movieCard__button  movieCard__button_save"
-      : "movieCard__button movieCard__button_unlock"; // todo верстка страдает
+      : "movieCard__button movieCard__button_unlock";
     let durationString = Math.floor(duration / 60) + 'ч' + duration % 60 + 'м';
 
     return(
