@@ -11,8 +11,88 @@ import Profile from "../UserProfile/Profile/Profile";
 import Error404 from "../Error404/Error404";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import moviesApi from "../../utils/MoviesApi";
+import {authorize, register} from "../../utils/MainApi";
+
 
 function App() {
+    const [movies, setMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [registerError, setRegisterError] = useState('');
+    const [loginError, setLoginError] = useState('');
+    const [currentUser, setCurrentUser] = useState({
+        loggedIn: false,
+        name: '',
+        email: '',
+        _id: '',
+    });
+
+    const navigate = useNavigate();
+
+    const handleSearchSubmit = (keyword, isShortFilms) => {
+        moviesApi.getAllMovies()
+            .then((movies) => {
+                setIsLoading(true);
+                let filteredMovies =
+                    movies.filter((movie) => movie.nameRU.toUpperCase().includes(keyword.toUpperCase()));
+                if(keyword === '000') // todo remove and make const
+                {
+                    filteredMovies = movies;
+                }
+                setMovies(filteredMovies);
+                localStorage.setItem('filteredMovies', filteredMovies);
+                localStorage.setItem('shortFilms', isShortFilms);
+                localStorage.setItem('keyword', keyword)
+
+                setTimeout(() => setIsLoading(false), 500);
+            });
+    };
+
+    const handleSaveSummit = () => {
+
+    };
+
+    const onRegister = (name, email, password) => {
+        register(name, email, password)
+            .then((user) => {
+                if(user) {
+                    onLogin(email, password);
+                }
+                setRegisterError('');
+            })
+            .catch((err) => {
+                if(err.errorCode == 409)
+                {
+                    setRegisterError('Пользователь с таким email уже существует');
+                } else {
+                    setRegisterError('Произошла ошибка');
+                }
+            });
+    }
+
+    const onLogin = (email, password) => {
+        authorize(email, password)
+            .then((res) => {
+                if (res.jwt) {
+                    localStorage.setItem('jwt', res.jwt);
+                    setLoginError('');
+                    setCurrentUser({
+                        loggedIn: true,
+                        name: res.name,
+                        email: res.email,
+                        _id: res._id,
+                    });
+                }
+            })
+            .then(() => navigate('/movies'))
+            .catch((err) => {
+                if (err.errorCode === 404) {
+                    setLoginError('Вы ввели неправильный логин или пароль.');
+                    return;
+                }
+                setLoginError('Ошибка логина');
+            });
+    };
 
     return(
         <CurrentUserContext.Provider>
@@ -27,7 +107,9 @@ function App() {
               path="/sign-in"
               element={
                 <>
-                  <Login />
+                  <Login
+                  onLogin={onLogin}
+                  loginError={loginError}/>
                 </>
               }
             />
@@ -36,7 +118,9 @@ function App() {
               path="/sign-up"
               element={
                 <>
-                  <Register />
+                  <Register
+                    onRegister={onRegister}
+                    registerError = {registerError}/>
                 </>
               }
             />
@@ -62,7 +146,12 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <MoviesCardList />
+                  <MoviesCardList
+                      handleSearchSubmit = {handleSearchSubmit}
+                      movies = {movies}
+                      isLoading = {isLoading}
+                      handleSaveSummit = {handleSaveSummit}
+                  />
                 </>
               }
             />

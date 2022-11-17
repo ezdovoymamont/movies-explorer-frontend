@@ -1,23 +1,31 @@
 import "./MoviesCard.css"
-import imgFilm from "../../../images/imgFilm.svg"
 
-function MoviesCard() {
+function MoviesCard({
+    name,
+    duration,
+    thumbnail,
+    trailerLink,
+    isSaved,
+    handleSaveSummit,
+    onDelete,
+    movie}) {
 
-    // let buttonClassName =
-    //   ? "movieCard__button movies-card__button_save"
-    //   : "movieCard__button";
-
+    let saveButtonClassName = isSaved
+      ? "movieCard__button  movieCard__button_save"
+      : "movieCard__button movieCard__button_unlock"; // todo верстка страдает
+    let durationString = Math.floor(duration / 60) + 'ч' + duration % 60 + 'м';
 
     return(
       <li className="movieCard__item">
         <div className="movieCard__block">
           <div className="movieCard__description">
-            <h3 className="movieCard__title">33 слова о дизайне</h3>
-  
+            <h3 className="movieCard__title">{name}</h3>
+
             {/* {location.pathname === "/movies" && ( */}
               <button
                 // className={buttonClassName}
-                className="movieCard__button_save"
+                className={saveButtonClassName}
+                onClick={handleSaveSummit}
                 type="button"
               ></button>
             {/* )} */}
@@ -29,13 +37,13 @@ function MoviesCard() {
             {/* )} */}
           </div>
           <p className="movieCard__time">
-            1ч 47м
+              {durationString}
           </p>
         </div>
-        <img src={imgFilm} alt="Заставка фильма" className="movieCard__image" />
+        <img src={thumbnail} alt={name} className="movieCard__image" />
       </li>
-        
-       
+
+
     );
 }
 

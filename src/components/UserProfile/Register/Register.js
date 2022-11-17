@@ -1,13 +1,22 @@
 import { Link } from "react-router-dom";
 import "./Register.css";
+import {useFormWithValidation} from "../../../utils/useFormWithValidation";
 // import logo_header from "../../../images/logo_header.svg"
 
-function Register() {
-  
+function Register({onRegister, registerError}) {
+  const validation = useFormWithValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password } = validation.values;
+    onRegister(name, email, password);
+    validation.resetForm();
+  };
+// todo ошибки валидации. js + верстка??
   return (
     <div className="register">
       {/* <img alt="Логотип" className="register__header" /> */}
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
       <header className="register__header"></header>
         <h2 className="register__title">Добро пожаловать!</h2>
         <label className="register__field">
@@ -20,6 +29,9 @@ function Register() {
           name="name"
           id="name"
           required
+          onChange={validation.handleChange}
+          value={validation?.values?.name || ''}
+          pattern='[A-Za-zА-Яа-яЁё\s-]+'
         />
         <span className="register__input-error" />
         </label>
@@ -34,6 +46,9 @@ function Register() {
           name="email"
           id="email"
           required
+          onChange={validation.handleChange}
+          value={validation?.values?.email || ''}
+          pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
         />
         <span className="register__input-error" />
         </label>
@@ -42,17 +57,26 @@ function Register() {
         <span className="register__label">Пароль</span>
         <input
           className="register__input"
-          minLength="10"
+          minLength="3" //todo must be 10
           maxLength="50"
           type="password"
           name="password"
           id="password"
+          onChange={validation.handleChange}
+          value={validation?.values?.password || ''}
           required
         />
         <span className="register__input-error" />
         </label>
 
-        <button type="submit" className="register__save-button">
+        {/*todo верстка*/}
+
+        <span className="register__input-error">{registerError}</span>
+        <button
+            type="submit"
+            className="register__save-button"
+            disabled={!validation.isValid}
+        >
           Зарегистрироваться
         </button>
       </form>

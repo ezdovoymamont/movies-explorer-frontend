@@ -9,17 +9,17 @@ function HeaderFilms() {
     <div className="headerFilms1">
     <div className="headerFilms__container">
       {/* <div className="headerMain__logo"></div> */}
-     
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn">
-        <span class="navicon"></span>
+
+      <input className="menu-btn" type="checkbox" id="menu-btn" />
+      <label className="menu-icon" htmlFor="menu-btn">
+        <span className="navicon"></span>
       </label>
       <Link className="headerMain__logo" to="/" >
         <img alt="Логотип сайта" src={logo} />
       </Link>
       <div className="headerFilmsMenu__container">
-        
-        
+
+
         <div className="headerFilms_fill"></div>
 
         <ul className="headerFilms__links">
@@ -50,8 +50,8 @@ function HeaderFilms() {
     </div>
     </div>
 
-    
-  
+
+
 </div>
 
 

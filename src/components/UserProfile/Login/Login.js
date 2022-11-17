@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import {useFormWithValidation} from "../../../utils/useFormWithValidation";
 // import logo_header from "../../../images/logo_header.svg"
 
 
-function Login() {
+function Login({onLogin, loginError}) {
+  const validation = useFormWithValidation();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = validation.values;
+    onLogin( email, password);
+    validation.resetForm();
+  };
   return (
     <div className="login">
       {/* <img src={logo_header} alt="Логотип" className="login__header" /> */}
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <header className="login__header"></header>
         <h2 className="login__title">Рады видеть!</h2>
         <label className="login__field">
@@ -22,6 +30,9 @@ function Login() {
           name="email"
           id="email"
           required
+          onChange={validation.handleChange}
+          value={validation?.values?.email || ''}
+          pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
         />
         <span className="login__input-error" />
         </label>
@@ -30,17 +41,27 @@ function Login() {
         <span className="login__label">Пароль</span>
         <input
           className="login__input"
-          minLength="10"
+          minLength="3" // todo must be 10
           maxLength="50"
           type="password"
           name="password"
           id="password"
           required
+          onChange={validation.handleChange}
+          value={validation?.values?.password || ''}
+          required
         />
         <span className="login__input-error" />
         </label>
-        
-        <button type="submit" className="login__save-button">
+
+        {/*todo верстка*/}
+        <span className="login__input-error" >{loginError}</span>
+
+        <button
+            type="submit"
+            className="login__save-button"
+            disabled={validation.isValid === false}
+        >
           Войти
         </button>
       </form>
