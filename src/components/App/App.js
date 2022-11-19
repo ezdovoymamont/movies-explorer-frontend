@@ -45,9 +45,7 @@ function App() {
                     }
                     setMovies(filteredMovies);
                     localStorage.setItem('filteredMovies', filteredMovies);
-                    localStorage.setItem('shortFilms', isShortFilms);
                     localStorage.setItem('keyword', keyword)
-console.log("save" + isShortFilms)
                     setTimeout(() => setIsLoading(false), 500);
                 });
         }
@@ -121,11 +119,7 @@ console.log("save" + isShortFilms)
                             setLoginError('');
                         })
                         .catch((err) => {
-                            if (err.includes(404)) {
-                                setLoginError('Вы ввели неправильный логин или пароль.');
-                                return;
-                            }
-                            setLoginError('Ошибка логина');
+                            setLoginError('Что то пошло не так');
                         });
                 }
             })
@@ -167,12 +161,14 @@ console.log("save" + isShortFilms)
             _id: '',
         });
         localStorage.setItem('filteredMovies', '');
-        localStorage.setItem('shortFilms', false);
         localStorage.setItem('keyword', '')
         navigate('/');
     }
 
     useEffect(() => {
+        if(currentUser.loggedIn === false){
+            return;
+        }
         getMovies()
             .then(movies => {
                 setSavedMovies(movies);
@@ -183,7 +179,31 @@ console.log("save" + isShortFilms)
             });
     }, [location])
 
-
+    useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if(!jwt) {
+            return;
+        }
+        if(currentUser.loggedIn){
+            return;
+        }
+        checkToken(jwt)
+            .then((res) => {
+                setCurrentUser({
+                    loggedIn: true,
+                    name: res.data.name,
+                    email: res.data.email,
+                    _id: res.data._id,
+                });
+                setLoginError('');
+            })
+            .then(() => {
+                navigate('/movies');
+            })
+            .catch((err) => {
+                navigate('/sign-in')
+            });
+    }, [])
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

@@ -12,6 +12,7 @@ function SearchForm({
     const [isFormValid, setIsFormValid] = useState(false);
     const location = useLocation();
     const [checked, setChecked] = useState(false);
+    const [checkedSave, setCheckedSave] = useState(false);
 
 
     useEffect(() => {
@@ -34,10 +35,16 @@ function SearchForm({
         onSubmit(keyword, checked);
     }
 
-    const handleChecked = (check) => {
-        setChecked(check);
+    const handleChecked = (evt) => {
+        const check = evt.target.checked;
+        if(location.pathname === '/movies'){
+            setChecked(check);
+        }
+        else{
+            setCheckedSave(check);
+        }
         if(keyword){
-            onSubmit(keyword, checked);
+            onSubmit(keyword, check);
         }
     };
 
@@ -63,8 +70,9 @@ function SearchForm({
                 <span className="searchForm__error">{!isFormValid && error}</span>
             </form>
             <FilterCheckbox
-                onChecked={handleChecked}
+                handleChecked={handleChecked}
                 checked={checked}
+                checkedSave={checkedSave}
             ></FilterCheckbox>
         </div>
     </section>);

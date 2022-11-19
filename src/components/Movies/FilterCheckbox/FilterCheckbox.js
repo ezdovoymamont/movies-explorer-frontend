@@ -1,35 +1,17 @@
-import {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({onChecked}) {
-    const [checked, setChecked] = useState(false);
-    const location = useLocation;
-
-    const handleChecked = (evt) => {
-        setChecked(evt.target.checked);
-        onChecked(evt.target.checked);
-    }
-
-    useEffect(() => {
-        if (location.pathname === '/movies') {
-            console.log("loc")
-        }
-    }, [location]);
-
-    // useEffect(() => {
-    //         console.log("loc")
-    // }, [location])
-
+function FilterCheckbox({handleChecked, checked, checkedSave}) {
+    const location = useLocation();
+    const val = location.pathname === '/movies' ? checked : checkedSave;
     return (
         <div className="filterCheckbox filterCheckbox__container">
             <input
                 type="checkbox"
                 className="checkbox"
                 name="filterCheckbox"
-              
-                checked={checked}
-                onClick={handleChecked}
+                checked={val}
+                onChange={handleChecked}
             />
             <label htmlFor="checkbox"></label>
             <p className="filterCheckbox__title">Короткометражки</p>
