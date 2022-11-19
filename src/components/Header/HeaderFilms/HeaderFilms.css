@@ -91,18 +91,13 @@
 }
 
 .headerFilms__link_type_active {
-    border-bottom: 1px solid #FFFFFF;
-    padding-bottom: 4px;
+
 }
 
 .headerFilms__link-menu {
     display: none;
 }
 
-.headerFilms__link-menu_type_active {
-    border-bottom: 1px solid #FFFFFF;
-    padding-bottom: 4px;
-}
 
 .headerFilms__link {
     opacity: 0.8;
@@ -141,6 +136,10 @@
     }  */
     .menu-btn:checked ~ .headerFilmsMenu__container {
         max-width: 700px;
+    }
+    .headerFilms__link_type_active {
+        border-bottom: 1px solid #FFFFFF;
+        padding-bottom: 4px;
     }
 }
 
