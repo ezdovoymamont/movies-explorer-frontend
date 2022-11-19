@@ -1,3 +1,5 @@
+https://github.com/ezdovoymamont/movies-explorer-frontend/pull/2
+
 # Figma prog
 
 https://disk.yandex.ru/d/uyT5ZtMmNfHCxw
