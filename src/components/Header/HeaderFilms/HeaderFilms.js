@@ -15,17 +15,17 @@ function HeaderFilms() {
 
     useEffect(() => {
 
-        setMainClasses("headerFilms__link");
+        setMainClasses("headerFilms__link-menu");
         setMoviesClasses("headerFilms__link");
         setSavedMoviesClasses("headerFilms__link");
         if(location.pathname === '/'){
             setMainClasses("headerFilms__link-menu headerFilms__link_type_active");
         }
         if(location.pathname === '/movies'){
-            setMoviesClasses ("headerFilms__link-menu headerFilms__link_type_active");
+            setMoviesClasses ("headerFilms__link headerFilms__link_type_active");
         }
         if(location.pathname === '/saved-movies'){
-            setSavedMoviesClasses("headerFilms__link-menu headerFilms__link_type_active");
+            setSavedMoviesClasses("headerFilms__link headerFilms__link_type_active");
         }
         console.log(mainClasses)
         console.log(moviesClasses)
