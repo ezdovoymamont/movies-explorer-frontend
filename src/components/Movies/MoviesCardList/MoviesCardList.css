@@ -32,6 +32,17 @@
     cursor: pointer;
 }
 
+.movies__span {
+    background-color: #202020;
+    color: #FFFFFF;
+    font-family: "Inter";
+    margin: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+}
+
 @media screen and (max-width: 990px) {
     .movies-list__container {
         grid-gap: 34px 30px;

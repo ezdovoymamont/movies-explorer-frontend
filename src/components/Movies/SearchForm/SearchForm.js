@@ -1,4 +1,4 @@
-import Checkbox from "../FilterCheckbox/FilterCheckbox"
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox"
 import "./SearchForm.css";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
@@ -17,7 +17,6 @@ function SearchForm({
     useEffect(() => {
         if (location.pathname === '/movies') {
             setKeyword(localStorage.getItem('keyword'));
-            setChecked(localStorage.getItem('shortFilms'));
         }
     }, [location]);
 
@@ -35,10 +34,10 @@ function SearchForm({
         onSubmit(keyword, checked);
     }
 
-    const handleChecked = (evt) => {
-        setChecked(evt.target.checked);
+    const handleChecked = (check) => {
+        setChecked(check);
         if(keyword){
-            onSubmit(keyword, evt.target.checked);
+            onSubmit(keyword, checked);
         }
     };
 
@@ -63,10 +62,10 @@ function SearchForm({
                 <button type="submit" className="searchForm__button"></button>
                 <span className="searchForm__error">{!isFormValid && error}</span>
             </form>
-            <Checkbox
-                handleChecked={handleChecked}
+            <FilterCheckbox
+                onChecked={handleChecked}
                 checked={checked}
-            ></Checkbox>
+            ></FilterCheckbox>
         </div>
     </section>);
 }

@@ -37,7 +37,7 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                         value={validation?.values?.name || ''}
                         pattern='[A-Za-zА-Яа-яЁё\s-]+'
                     />
-                    <span className="profile__input-error">{name}</span>s
+                    <span className="profile__input-error">{name}</span>
 
                 </label>
 
@@ -55,11 +55,11 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                         value={validation?.values?.email || ''}
                         pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                     />
-                    <span className="profile__input-error">{email}</span>s
+                    <span className="profile__input-error">{email}</span>
 
                 </label>
                 <div className="profile__button">
-                    <span className="profile__input-error">{profileError}</span>s
+                    <span className="profile__input-error">{profileError}</span>
 
                     <button
                         className="profile__edit"

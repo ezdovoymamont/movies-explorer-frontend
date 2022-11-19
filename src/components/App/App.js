@@ -47,13 +47,17 @@ function App() {
                     localStorage.setItem('filteredMovies', filteredMovies);
                     localStorage.setItem('shortFilms', isShortFilms);
                     localStorage.setItem('keyword', keyword)
-
+console.log("save" + isShortFilms)
                     setTimeout(() => setIsLoading(false), 500);
                 });
         }
         if (location.pathname === '/saved-movies') {
-            setSavedMoviesToShow(savedMovies.filter(
-                (m) => m.nameRU.toUpperCase().includes(keyword.toUpperCase())));
+            let filteredMovies = savedMovies.filter(
+                (m) => m.nameRU.toUpperCase().includes(keyword.toUpperCase()));
+            if(isShortFilms) {
+                filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+            }
+            setSavedMoviesToShow(filteredMovies);
         }
     };
 

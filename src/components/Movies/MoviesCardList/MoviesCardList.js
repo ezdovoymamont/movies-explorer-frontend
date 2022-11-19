@@ -64,7 +64,7 @@ function MoviesCardList({
             <SearchForm
                 onSubmit={handleSearchSubmit}
             />
-            {isLoading ? (<Preloader/>) : (message !== '' ? (<h2>{message}</h2>) // todo верстка
+            {isLoading ? (<Preloader/>) : (message !== '' ? (<h2 className="movies__span">{message}</h2>) // todo верстка
                 : (<section className="movies-list">
                     <div className="movies-list__container">
                         {moviesToShow.map((movie) => {

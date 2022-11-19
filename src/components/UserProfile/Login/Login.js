@@ -34,7 +34,7 @@ function Login({onLogin, loginError}) {
                         value={validation?.values?.email || ''}
                         pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                     />
-                    <span className="login__input-error">{email}</span>s
+                    <span className="login__input-error">{email}</span>
                 </label>
 
                 <label className="login__field">
