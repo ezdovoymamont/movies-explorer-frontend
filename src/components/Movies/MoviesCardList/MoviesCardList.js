@@ -6,15 +6,27 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import Footer from "../../../components/Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import {useEffect, useState} from "react";
+import {MOVIE_API_PATH} from "../../../utils/constants";
 
-function MoviesCardList({handleSearchSubmit, movies, isLoading, isFailToLoad, handleSaveSummit}) {
+function MoviesCardList({
+                            handleSearchSubmit,
+                            movies,
+                            isLoading,
+                            isFailToLoad,
+                            handleSaveSummit,
+                            savedMovies,
+                            savedMoviesToShow,
+                            isSavedMovies
+                        }) {
     const [moviesToShowCount, setMoviesToShowCount] = useState(3);
     const [moviesToLoad, setMoviesToLoad] = useState(3);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const handleShowMore = () => {
         setMoviesToShowCount((count) => count + moviesToLoad);
     }
-     useEffect(() => {
+
+    const moviesToShow = isSavedMovies ? savedMoviesToShow : movies.slice(0, moviesToShowCount);
+    useEffect(() => {
         const handleWindowResize = () => {
             setWindowWidth(window.innerWidth);
         };
@@ -22,77 +34,65 @@ function MoviesCardList({handleSearchSubmit, movies, isLoading, isFailToLoad, ha
         if (windowWidth <= 480) {
             setMoviesToShowCount(5);
             setMoviesToLoad(2);
-        } else if (windowWidth > 480 && windowWidth <= 768 ) {
+        } else if (windowWidth > 480 && windowWidth <= 768) {
             setMoviesToShowCount(8);
             setMoviesToLoad(2);
-        } else if(windowWidth > 768 && windowWidth <= 1280) {
+        } else if (windowWidth > 768 && windowWidth <= 1280) {
             setMoviesToShowCount(5);
             setMoviesToLoad(2);
         } else {
             setMoviesToShowCount(12);
             setMoviesToLoad(3);
         }
-        return () => { window.removeEventListener('resize', handleWindowResize)};
+        return () => {
+            window.removeEventListener('resize', handleWindowResize)
+        };
     }, [windowWidth]);
 
-    const isNotFound = !Array.isArray(movies) || movies.length === 0;
+    const isNotFound = (!Array.isArray(movies) || movies.length === 0) && isSavedMovies === false;
+
     let message = '';
-    if(isFailToLoad) {
-        message = 'Во время запроса произошла ошибка. ' +
-            'Возможно, проблема с соединением или сервер недоступен. ' +
-            'Подождите немного и попробуйте ещё раз';
-    }
-    else if (isNotFound){
+    if (isFailToLoad) {
+        message = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+    } else if (isNotFound && localStorage.getItem('keyword')) {
         message = 'Ничего не найдено';
     }
 
-    return(
-        <>
-        <HeaderFilms />
+    return (<>
+        <HeaderFilms/>
         <main>
             <SearchForm
-                // onCheckbox={}
-                // checked = {}
-                // checkedSaveMovies = {}
-                onSubmit = {handleSearchSubmit}
-                initKeyword = {localStorage.getItem('keyword')}
+                onSubmit={handleSearchSubmit}
             />
-            {isLoading
-                ? (<Preloader/>)
-                : (message !== ''
-                        ? (<h2>{message}</h2>) // todo верстка
-                        : (<section className="movies-list">
-                                <div className="movies-list__container">
-                                    {movies.slice(0, moviesToShowCount).map((movie) => {
-                                        return <MoviesCard
-                                            name={movie.nameRU}
-                                            thumbnail={`https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`}
-                                            duration={movie.duration}
-                                            isSaved={false}
-                                            handleSaveSummit={handleSaveSummit}
-                                        />
-                                    })}
+            {isLoading ? (<Preloader/>) : (message !== '' ? (<h2>{message}</h2>) // todo верстка
+                : (<section className="movies-list">
+                    <div className="movies-list__container">
+                        {moviesToShow.map((movie) => {
+                            //const isSaved = savedMovies?.some((mov) => mov.movieId === movie.id);
+                            return <MoviesCard
+                                name={movie.nameRU}
+                                thumbnail={isSavedMovies ? movie.thumbnail : `${MOVIE_API_PATH}/${movie.image.formats.thumbnail.url}`}
+                                duration={movie.duration}
+                                id={isSavedMovies ? movie.movieId : movie.id}
+                                trailerLink={movie.trailerLink}
+                                isSavedMovies={isSavedMovies}
+                                savedMovies={savedMovies}
+                                handleSaveSummit={handleSaveSummit}
+                            />
+                        })}
 
-                                </div>
-                                {moviesToShowCount < movies.length
-                                    ? (<button
-                                            type='button'
-                                            className="movies-list__button"
-                                            onClick={handleShowMore}
-                                        >
-                                            Еще
-                                        </button>
-                                    )
-                                    : ('')
-                                }
-                            </section>
-                        )
-                )
-            }
+                    </div>
+                    {moviesToShowCount < movies.length && isSavedMovies === false ? (<button
+                        type='button'
+                        className="movies-list__button"
+                        onClick={handleShowMore}
+                    >
+                        Еще
+                    </button>) : ('')}
+                </section>))}
         </main>
-        <Footer />
-        </>
-    );
+        <Footer/>
+    </>);
 }
 
 export default MoviesCardList;

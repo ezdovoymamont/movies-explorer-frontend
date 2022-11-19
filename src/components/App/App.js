@@ -1,7 +1,6 @@
-import React, { Profiler } from "react";
-import { BrowserRouter, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import React, {useEffect, useState} from "react";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 import "./App";
 import Main from "../Main/Main";
@@ -10,16 +9,20 @@ import Register from "../UserProfile/Register/Register";
 import Profile from "../UserProfile/Profile/Profile";
 import Error404 from "../Error404/Error404";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import SavedMovies from "../SavedMovies/SavedMovies";
 import moviesApi from "../../utils/MoviesApi";
-import {authorize, register} from "../../utils/MainApi";
+import {addMovie, authorize, checkToken, deleteMovie, getMovies, register, updateUser} from "../../utils/MainApi";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
 function App() {
     const [movies, setMovies] = useState([]);
+    const [savedMovies, setSavedMovies] = useState([]);
+    const [savedMoviesToShow, setSavedMoviesToShow] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
     const [registerError, setRegisterError] = useState('');
     const [loginError, setLoginError] = useState('');
+    const [profileError, setProfileError] = useState('');
     const [currentUser, setCurrentUser] = useState({
         loggedIn: false,
         name: '',
@@ -28,41 +31,65 @@ function App() {
     });
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSearchSubmit = (keyword, isShortFilms) => {
-        moviesApi.getAllMovies()
-            .then((movies) => {
-                setIsLoading(true);
-                let filteredMovies =
-                    movies.filter((movie) => movie.nameRU.toUpperCase().includes(keyword.toUpperCase()));
-                if(keyword === '000') // todo remove and make const
-                {
-                    filteredMovies = movies;
-                }
-                setMovies(filteredMovies);
-                localStorage.setItem('filteredMovies', filteredMovies);
-                localStorage.setItem('shortFilms', isShortFilms);
-                localStorage.setItem('keyword', keyword)
+        if (location.pathname === '/movies') {
+            moviesApi.getAllMovies()
+                .then((movies) => {
+                    setIsLoading(true);
+                    let filteredMovies =
+                        movies.filter((movie) => movie.nameRU.toUpperCase().includes(keyword.toUpperCase()));
+                    if(isShortFilms){
+                        filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+                    }
+                    setMovies(filteredMovies);
+                    localStorage.setItem('filteredMovies', filteredMovies);
+                    localStorage.setItem('shortFilms', isShortFilms);
+                    localStorage.setItem('keyword', keyword)
 
-                setTimeout(() => setIsLoading(false), 500);
-            });
+                    setTimeout(() => setIsLoading(false), 500);
+                });
+        }
+        if (location.pathname === '/saved-movies') {
+            setSavedMoviesToShow(savedMovies.filter(
+                (m) => m.nameRU.toUpperCase().includes(keyword.toUpperCase())));
+        }
     };
 
-    const handleSaveSummit = () => {
-
+    const handleSaveSummit = (id) => {
+        const isSaved = savedMovies.some(m => m.movieId === id);
+        if (isSaved) {
+            const _id = savedMovies.find((m) => m.movieId === id)._id;
+            deleteMovie(_id)
+                .then((data) => {
+                    setSavedMovies(savedMovies.filter((m) => m.movieId !== id));
+                    setSavedMoviesToShow(savedMoviesToShow.filter((m) => m.movieId !== id));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            addMovie(movies.find(m => m.id === id))
+                .then((data) => {
+                    setSavedMovies([data.data, ...savedMovies]);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     const onRegister = (name, email, password) => {
         register(name, email, password)
             .then((user) => {
-                if(user) {
+                if (user) {
                     onLogin(email, password);
                 }
                 setRegisterError('');
             })
             .catch((err) => {
-                if(err.errorCode == 409)
-                {
+                if (err.includes(409)) {
                     setRegisterError('Пользователь с таким email уже существует');
                 } else {
                     setRegisterError('Произошла ошибка');
@@ -75,18 +102,31 @@ function App() {
             .then((res) => {
                 if (res.jwt) {
                     localStorage.setItem('jwt', res.jwt);
-                    setLoginError('');
-                    setCurrentUser({
-                        loggedIn: true,
-                        name: res.name,
-                        email: res.email,
-                        _id: res._id,
-                    });
+                    checkToken(res.jwt)
+                        .then((res) => {
+                            setCurrentUser({
+                                loggedIn: true,
+                                name: res.data.name,
+                                email: res.data.email,
+                                _id: res.data._id,
+                            });
+                            setLoginError('');
+                        })
+                        .then(() => {
+                            navigate('/movies');
+                            setLoginError('');
+                        })
+                        .catch((err) => {
+                            if (err.includes(404)) {
+                                setLoginError('Вы ввели неправильный логин или пароль.');
+                                return;
+                            }
+                            setLoginError('Ошибка логина');
+                        });
                 }
             })
-            .then(() => navigate('/movies'))
             .catch((err) => {
-                if (err.errorCode === 404) {
+                if (err.includes(404)) {
                     setLoginError('Вы ввели неправильный логин или пароль.');
                     return;
                 }
@@ -94,82 +134,141 @@ function App() {
             });
     };
 
-    return(
-        <CurrentUserContext.Provider>
-        <div>
-          <Routes>
-            <Route
-              path="/"
-              element={ <Main /> }
-            />
+    const onUpdateUser = (name, email) => {
+        console.log(name)
+        updateUser(name, email)
+            .then((res) => {
+                setCurrentUser({
+                    loggedIn: true,
+                    name: res.data.name,
+                    email: res.data.email,
+                    _id: res.data._id,
+                });
+                setProfileError('Данные успешно обновлены');
+            })
+            .catch((err) => {
+                if (err.includes(404)) {
+                    setProfileError('Вы ввели неправильный логин или пароль.');
+                    return;
+                }
+                setProfileError('Ошибка логина');
+            });
+    }
 
-            <Route
-              path="/sign-in"
-              element={
-                <>
-                  <Login
-                  onLogin={onLogin}
-                  loginError={loginError}/>
-                </>
-              }
-            />
+    const handleLogout = () => {
+        setCurrentUser({
+            loggedIn: false,
+            name: '',
+            email: '',
+            _id: '',
+        });
+        localStorage.setItem('filteredMovies', '');
+        localStorage.setItem('shortFilms', false);
+        localStorage.setItem('keyword', '')
+        navigate('/');
+    }
 
-            <Route
-              path="/sign-up"
-              element={
-                <>
-                  <Register
-                    onRegister={onRegister}
-                    registerError = {registerError}/>
-                </>
-              }
-            />
+    useEffect(() => {
+        getMovies()
+            .then(movies => {
+                setSavedMovies(movies);
+                setSavedMoviesToShow(movies)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [location])
 
-            <Route
-              path="/profile"
-              element={
-                <>
-                  <Profile />
-                </>
-              }
-            />
-            <Route
-              path="/404"
-              element={
-                <>
-                  <Error404 />
-                </>
-              }
-            />
 
-            <Route
-              path="/movies"
-              element={
-                <>
-                  <MoviesCardList
-                      handleSearchSubmit = {handleSearchSubmit}
-                      movies = {movies}
-                      isLoading = {isLoading}
-                      handleSaveSummit = {handleSaveSummit}
-                  />
-                </>
-              }
-            />
 
-            <Route
-              path="/saved-movies" // todo rename
-              element={
-                <>
-                  <SavedMovies />
-                </>
-              }
-            />
+    return (
+        <CurrentUserContext.Provider value={currentUser}>
+            <div>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Main/>}
+                    />
 
-            <Route path="/" element={<></>} />
-          </Routes>
+                    <Route
+                        path="/sign-in"
+                        element={
+                            <ProtectedRoute loggedIn={!currentUser.loggedIn}>
+                                <Login
+                                    onLogin={onLogin}
+                                    loginError={loginError}/>
+                            </ProtectedRoute>
+                        }
+                    />
 
-        </div>
-      </CurrentUserContext.Provider>
+                    <Route
+                        path="/sign-up"
+                        element={
+                            <ProtectedRoute loggedIn={!currentUser.loggedIn}>
+                                <Register
+                                    onRegister={onRegister}
+                                    registerError={registerError}/>
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+                                <Profile
+                                    onUpdateUser={onUpdateUser}
+                                    handleLogout={handleLogout}
+                                    profileError={profileError}
+                                />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="*"
+                        element={
+                            <>
+                                <Error404/>
+                            </>
+                        }
+                    />
+
+                    <Route
+                        path="/movies"
+                        element={
+                            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+                                <MoviesCardList
+                                    handleSearchSubmit={handleSearchSubmit}
+                                    movies={movies}
+                                    savedMovies={savedMovies}
+                                    isLoading={isLoading}
+                                    handleSaveSummit={handleSaveSummit}
+                                    isSavedMovies={false}
+                                />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/saved-movies"
+                        element={
+                            <ProtectedRoute loggedIn={currentUser.loggedIn}>
+                                <MoviesCardList
+                                    handleSearchSubmit={handleSearchSubmit}
+                                    movies={movies}
+                                    savedMovies={savedMovies}
+                                    isLoading={false}
+                                    isSavedMovies={true}
+                                    handleSaveSummit={handleSaveSummit}
+                                    savedMoviesToShow={savedMoviesToShow}
+                                />
+                            </ProtectedRoute>
+                        }
+                    />
+                </Routes>
+
+            </div>
+        </CurrentUserContext.Provider>
 
     );
 }

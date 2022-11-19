@@ -1,5 +1,5 @@
 class MoviesApi {
-    constructor({ url }) {
+    constructor({url}) {
         this._url = url;
     }
 

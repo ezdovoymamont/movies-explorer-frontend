@@ -15,8 +15,8 @@
     margin: 0 auto 0;
     max-width: 396px;
     display: flex;
-	flex-direction: column;
-	width: 100%;
+    flex-direction: column;
+    width: 100%;
 }
 
 .login__title {
@@ -73,7 +73,7 @@
 }
 
 .login__save-button:hover {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 .login__save-button:disabled {
@@ -90,9 +90,6 @@
     font-size: 10px;
     line-height: 12px;
     color: #ee3465;
-    opacity: 0;
-    /* visibility: hidden;
-    overflow: hidden; */
 }
 
 .block__register {

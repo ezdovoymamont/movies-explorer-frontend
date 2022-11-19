@@ -80,10 +80,10 @@
 
 @media screen and (max-width: 1280px) {
     .aboutMe__page {
-      width: calc(100% - 70px * 2);
+        width: calc(100% - 70px * 2);
     }
 }
-  
+
 @media screen and (max-width: 768px) {
     .aboutMe__page {
         width: calc(100% - 30px * 2);

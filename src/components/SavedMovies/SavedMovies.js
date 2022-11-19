@@ -1,11 +1,11 @@
-
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
 function SavedMovies() {
-    return(
+    return (
         <>
-            <MoviesCardList />  
+            <MoviesCardList/>
         </>
     );
 }
+
 export default SavedMovies;

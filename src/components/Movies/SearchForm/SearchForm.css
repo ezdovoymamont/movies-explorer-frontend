@@ -1,19 +1,19 @@
 .searchForm {
     background: #202020;
-    font-family: "Inter";   
+    font-family: "Inter";
     padding: 80px 0 40px;
     width: 100%;
 }
-  
+
 .searchForm__container {
     display: flex;
     margin: 0 auto;
     border-bottom: 1px solid #dadada;
     width: calc(100% - 70px * 2);
     flex-direction: column;
-    max-width: 1140px; 
+    max-width: 1140px;
 }
-  
+
 .searchForm__form {
     position: relative;
     margin-right: 48px;
@@ -22,7 +22,7 @@
     flex-direction: row;
     align-items: center;
 }
-  
+
 .searchForm__input {
     margin-right: 10px;
     flex-grow: 1;
@@ -34,13 +34,13 @@
     color: #FFFFFF;
     background: #2F2F2F;
 }
-  
+
 .searchForm__input:focus {
     border: 1px solid #FFFFFF;
     color: #FFFFFF;
     opacity: 1;
 }
-  
+
 .searchForm__button {
     right: 7px;
     border: none;
@@ -55,21 +55,21 @@
     transition: opacity 0.4s linear;
     cursor: pointer;
 }
-  
+
 .searchForm__button:hover {
     opacity: 0.8;
 }
- 
+
 .searchForm__error {
-  position: absolute;
-  left: 50%;
-  bottom: -23px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12px;
-  color: #EE3465;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    bottom: -23px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 890px) {
@@ -77,29 +77,28 @@
       display: block;
       width: calc(100% - 30px * 2);
     } */
-  
     .searchForm__form {
-      margin-bottom: 26px;
+        margin-bottom: 26px;
     }
-  
+
     .searchForm__input {
-      padding: 13px 20px;
+        padding: 13px 20px;
     }
 }
-  
+
 @media screen and (max-width: 480px) {
     .searchForm__container {
-      width: calc(100% - 14px * 2);
+        width: calc(100% - 14px * 2);
     }
-  
+
     .searchForm__form {
-      margin-bottom: 35px;
+        margin-bottom: 35px;
     }
-  
+
     .searchForm__input {
-      padding: 13px 20px;
-      font-size: 11px;
-      line-height: 18px;
+        padding: 13px 20px;
+        font-size: 11px;
+        line-height: 18px;
     }
-  
+
 }

@@ -10,6 +10,10 @@
     object-fit: cover;
 }
 
+.movieCard__trailer-link {
+
+}
+
 .movieCard__description {
     display: flex;
     align-items: center;
@@ -48,9 +52,9 @@
     background: url(../../../images/save1.svg) no-repeat center;
 }
 
- .movieCard__button_unlock {
+.movieCard__button_unlock {
     border: none;
-    background: url(../../../images/save_unlock1.svg) no-repeat center; 
+    background: url(../../../images/save_unlock1.svg) no-repeat center;
 }
 
 .movieCard__button_delete {
@@ -70,15 +74,15 @@
 
 @media screen and (max-width: 990px) {
     .movieCard__image {
-      margin-bottom: 14px;
-      width: 339px;
-      height: 190px;
+        margin-bottom: 14px;
+        width: 339px;
+        height: 190px;
     }
 }
 
 @media screen and (max-width: 420px) {
     .movieCard__image {
-      width: 300px;
-      height: 168px;
+        width: 300px;
+        height: 168px;
     }
 }

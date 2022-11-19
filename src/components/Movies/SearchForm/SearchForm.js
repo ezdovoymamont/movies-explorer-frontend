@@ -4,66 +4,71 @@ import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 function SearchForm({
-    onCheckbox,
-    checked,
-    checkedSaveMovies,
-    onSubmit,
-    initKeyword}) {
+                        onSubmit
+                    }) {
 
     const [error, setError] = useState('');
     const [keyword, setKeyword] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const location = useLocation();
+    const [checked, setChecked] = useState(false);
+
 
     useEffect(() => {
-        setKeyword(initKeyword);
-    }, []);
+        if (location.pathname === '/movies') {
+            setKeyword(localStorage.getItem('keyword'));
+            setChecked(localStorage.getItem('shortFilms'));
+        }
+    }, [location]);
 
     const handleInputChange = (evt) => {
         setKeyword(evt.target.value);
         setIsFormValid(evt.target.closest('form').checkValidity());
     }
 
-    const handleFormSubmit = (evt) =>
-    {
+    const handleFormSubmit = (evt) => {
         evt.preventDefault();
         setIsFormValid(evt.target.closest('form').checkValidity());
         if (!isFormValid) {
             return setError('Нужно ввести ключевое слово');
         }
-        onSubmit(keyword);
+        onSubmit(keyword, checked);
     }
 
-  return (
-    <section className="searchForm searchForm__page">
+    const handleChecked = (evt) => {
+        setChecked(evt.target.checked);
+        if(keyword){
+            onSubmit(keyword, evt.target.checked);
+        }
+    };
+
+    return (<section className="searchForm searchForm__page">
         <div className="searchForm__container">
-        <form
-          action="#"
-          className="searchForm__form"
-          noValidate
-          onSubmit={handleFormSubmit}
-        >
-          <input
-            type="text"
-            className="searchForm__input"
-            placeholder="Фильм"
-            required
-            minLength="3"
-            maxLength="30"
-            onChange={handleInputChange}
-            value={keyword}
-          />
-          <button type="submit" className="searchForm__button"></button>
-          <span className="searchForm__error">{!isFormValid && error}</span>
-        </form>
+            <form
+                action="#"
+                className="searchForm__form"
+                noValidate
+                onSubmit={handleFormSubmit}
+            >
+                <input
+                    type="text"
+                    className="searchForm__input"
+                    placeholder="Фильм"
+                    required
+                    minLength="3"
+                    maxLength="30"
+                    onChange={handleInputChange}
+                    value={keyword}
+                />
+                <button type="submit" className="searchForm__button"></button>
+                <span className="searchForm__error">{!isFormValid && error}</span>
+            </form>
             <Checkbox
-                onCheckbox={onCheckbox}
+                handleChecked={handleChecked}
                 checked={checked}
-                checkedSaveMovies={checkedSaveMovies}
             ></Checkbox>
-      </div>
-    </section>
-  );
+        </div>
+    </section>);
 }
 
 export default SearchForm;
