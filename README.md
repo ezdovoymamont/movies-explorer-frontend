@@ -1,4 +1,10 @@
+# Pull request
+
 https://github.com/ezdovoymamont/movies-explorer-frontend/pull/2
+
+# Frontend link
+
+http://garry.students.nomoredomains.icu/
 
 # Figma prog
 
