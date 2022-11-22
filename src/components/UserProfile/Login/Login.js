@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import "./Login.css";
 import {useFormWithValidation} from "../../../utils/useFormWithValidation";
+import logo from "../../../images/logo_header.svg";
 
 
 function Login({onLogin, loginError}) {
@@ -18,7 +19,11 @@ function Login({onLogin, loginError}) {
     return (
         <div className="login">
             <form className="login__form" onSubmit={handleSubmit}>
-                <header className="login__header"></header>
+                <header className="login__header">
+                    <Link className="" to="/">
+                      <img alt="Логотип сайта" src={logo}/>
+                    </Link>
+                </header>
                 <h2 className="login__title">Рады видеть!</h2>
                 <label className="login__field">
                     <span className="login__label">E-mail</span>

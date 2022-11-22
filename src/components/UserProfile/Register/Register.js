@@ -1,6 +1,8 @@
 import {Link} from "react-router-dom";
 import "./Register.css";
 import {useFormWithValidation} from "../../../utils/useFormWithValidation";
+import logo from "../../../images/logo_header.svg";
+import React from "react";
 
 function Register({onRegister, registerError}) {
     const validation = useFormWithValidation();
@@ -19,7 +21,13 @@ function Register({onRegister, registerError}) {
         <div className="register">
             {/* <img alt="Логотип" className="register__header" /> */}
             <form className="register__form" onSubmit={handleSubmit}>
-                <header className="register__header"></header>
+                <header className="register__header">
+                    <header className="login__header">
+                        <Link className="" to="/">
+                            <img alt="Логотип сайта" src={logo}/>
+                        </Link>
+                    </header>
+                </header>
                 <h2 className="register__title">Добро пожаловать!</h2>
                 <label className="register__field">
                     <span className="register__label">Имя</span>

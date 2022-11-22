@@ -27,12 +27,6 @@ function HeaderFilms() {
         if(location.pathname === '/saved-movies'){
             setSavedMoviesClasses("headerFilms__link headerFilms__link_type_active");
         }
-        console.log(mainClasses)
-        console.log(moviesClasses)
-        console.log(savedMoviesClasses)
-
-
-
     }, [location])
     return (
         <div className="headerFilms">

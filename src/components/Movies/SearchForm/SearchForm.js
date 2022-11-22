@@ -1,6 +1,6 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox"
 import "./SearchForm.css";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 function SearchForm({
@@ -12,8 +12,7 @@ function SearchForm({
     const [isFormValid, setIsFormValid] = useState(false);
     const location = useLocation();
     const [checked, setChecked] = useState(false);
-    const [checkedSave, setCheckedSave] = useState(false);
-
+    const [checkedSaved, setCheckedSaved] = useState(false);
 
     useEffect(() => {
         if (location.pathname === '/movies') {
@@ -23,28 +22,31 @@ function SearchForm({
 
     const handleInputChange = (evt) => {
         setKeyword(evt.target.value);
-        setIsFormValid(evt.target.closest('form').checkValidity());
+        setIsFormValid(evt.target.closest('form').checkValidity() && evt.target.value.trim().length > 0);
     }
 
     const handleFormSubmit = (evt) => {
+        const keywordTrim = keyword.trim();
         evt.preventDefault();
         setIsFormValid(evt.target.closest('form').checkValidity());
         if (!isFormValid) {
             return setError('Нужно ввести ключевое слово');
         }
-        onSubmit(keyword, checked);
+        if(location.pathname === '/movies') {
+            onSubmit(keywordTrim, checked);
+        } else {
+            onSubmit(keywordTrim, checkedSaved);
+        }
     }
 
-    const handleChecked = (evt) => {
-        const check = evt.target.checked;
+    const handleChecked = (isShort) => {
         if(location.pathname === '/movies'){
-            setChecked(check);
-        }
-        else{
-            setCheckedSave(check);
+            setChecked(isShort);
+        } else {
+            setCheckedSaved(isShort);
         }
         if(keyword){
-            onSubmit(keyword, check);
+            onSubmit(keyword, isShort);
         }
     };
 
@@ -61,7 +63,7 @@ function SearchForm({
                     className="searchForm__input"
                     placeholder="Фильм"
                     required
-                    minLength="3"
+                    minLength="1"
                     maxLength="30"
                     onChange={handleInputChange}
                     value={keyword}
@@ -71,8 +73,6 @@ function SearchForm({
             </form>
             <FilterCheckbox
                 handleChecked={handleChecked}
-                checked={checked}
-                checkedSave={checkedSave}
             ></FilterCheckbox>
         </div>
     </section>);

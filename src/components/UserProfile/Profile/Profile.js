@@ -12,8 +12,15 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const {name, email} = validation.values;
-
+        let {name, email} = validation.values;
+        if(!email)
+        {
+            email = currentUser.email;
+        }
+        if(!name)
+        {
+            name = currentUser.name;
+        }
         onUpdateUser(name, email);
         validation.resetForm();
     };
@@ -63,7 +70,11 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
 
                     <button
                         className="profile__edit"
-                        disabled={validation.isValid === false || (currentUser.name === validation?.values?.name ?? currentUser.email === validation?.values?.email)}
+                        disabled={
+                            ((validation?.values?.name === currentUser.name) || name)
+                            && ((validation?.values?.email === currentUser.email) || email)
+                            && (currentUser.name === validation?.values?.name && currentUser.email === validation?.values?.email)
+                    }
                     >Редактировать</button>
                     <button
                         className="profile__logout"

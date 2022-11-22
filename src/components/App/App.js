@@ -43,17 +43,26 @@ function App() {
                     if(isShortFilms){
                         filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
                     }
+                    else{
+                        filteredMovies = filteredMovies.filter((movie) => movie.duration > 40);
+                    }
                     setMovies(filteredMovies);
-                    localStorage.setItem('filteredMovies', filteredMovies);
+                    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
                     localStorage.setItem('keyword', keyword)
+                    localStorage.setItem('shortFilms', isShortFilms)
                     setTimeout(() => setIsLoading(false), 500);
                 });
         }
         if (location.pathname === '/saved-movies') {
+            localStorage.setItem('shortFilmsSaved', isShortFilms)
+
             let filteredMovies = savedMovies.filter(
                 (m) => m.nameRU.toUpperCase().includes(keyword.toUpperCase()));
             if(isShortFilms) {
                 filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+            }
+            else{
+                filteredMovies = filteredMovies.filter((movie) => movie.duration > 40);
             }
             setSavedMoviesToShow(filteredMovies);
         }
@@ -133,7 +142,6 @@ function App() {
     };
 
     const onUpdateUser = (name, email) => {
-        console.log(name)
         updateUser(name, email)
             .then((res) => {
                 setCurrentUser({
@@ -160,8 +168,19 @@ function App() {
             email: '',
             _id: '',
         });
+        setMovies([]);
+        setSavedMovies([]);
+        setSavedMoviesToShow([]);
+        setIsLoading(false);
+        setRegisterError('');
+        setLoginError('');
+        setProfileError('');
+
         localStorage.setItem('filteredMovies', '');
         localStorage.setItem('keyword', '')
+        localStorage.setItem('shortFilms', '')
+        localStorage.setItem('jwt', '')
+
         navigate('/');
     }
 
@@ -169,19 +188,47 @@ function App() {
         if(currentUser.loggedIn === false){
             return;
         }
-        getMovies()
-            .then(movies => {
-                setSavedMovies(movies);
-                setSavedMoviesToShow(movies)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if(location.pathname === '/movies'){
+
+            try{
+                const loaded = JSON.parse(localStorage.getItem('filteredMovies'));
+                if(loaded)
+                {
+                    setMovies(loaded);
+                }
+            }
+            catch {
+                setMovies([]);
+            }
+        }
+        if(location.pathname === '/saved-movies'){
+            getMovies()
+                .then(movies => {
+                    setSavedMovies(movies);
+                    let filteredMovies = movies.filter(
+                        (m) => m.nameRU.toUpperCase().includes(localStorage.getItem('keyword').toUpperCase()));
+                    if(localStorage.getItem('shortFilmsSaved') === 'true') {
+                        console.log('short')
+                        filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+                    }
+                    else{
+                        filteredMovies = filteredMovies.filter((movie) => movie.duration > 40);
+                        console.log(filteredMovies)
+                    }
+                    setSavedMoviesToShow(filteredMovies);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        }
+
     }, [location])
 
     useEffect(() => {
         const jwt = localStorage.getItem('jwt');
         if(!jwt) {
+            handleLogout();
             return;
         }
         if(currentUser.loggedIn){
