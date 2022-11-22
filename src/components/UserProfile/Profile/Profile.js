@@ -71,10 +71,11 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                     <button
                         className="profile__edit"
                         disabled={
-                            ((validation?.values?.name === currentUser.name) || name)
-                            && ((validation?.values?.email === currentUser.email) || email)
-                            && (currentUser.name === validation?.values?.name && currentUser.email === validation?.values?.email)
-                    }
+                               ((validation?.values?.name !== currentUser.name) && name)
+                            || ((validation?.values?.email !== currentUser.email) && email)
+                            || (currentUser.name === validation?.values?.name && currentUser.email === validation?.values?.email)
+
+                        }
                     >Редактировать</button>
                     <button
                         className="profile__logout"
