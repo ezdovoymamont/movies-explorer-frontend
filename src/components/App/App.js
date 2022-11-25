@@ -189,7 +189,13 @@ function App() {
             return;
         }
         if(location.pathname === '/movies'){
-
+            getMovies()
+                .then(movies => {
+                    setSavedMovies(movies);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             try{
                 const loaded = JSON.parse(localStorage.getItem('filteredMovies'));
                 if(loaded)

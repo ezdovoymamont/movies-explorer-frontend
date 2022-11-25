@@ -1,6 +1,6 @@
 import "./Profile.css";
 import HeaderFilms from "../../Header/HeaderFilms/HeaderFilms"
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {CurrentUserContext} from "../../../contexts/CurrentUserContext";
 import {useFormWithValidation} from "../../../utils/useFormWithValidation";
 
@@ -38,10 +38,9 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                         name="name"
                         minLength="3"
                         maxLength="20"
-                        placeholder={currentUser.name}
                         required
                         onChange={validation.handleChange}
-                        value={validation?.values?.name || ''}
+                        value={validation?.values?.name ?? currentUser.name}
                         pattern='[A-Za-zА-Яа-яЁё\s-]+'
                     />
                     <span className="profile__input-error">{name}</span>
@@ -56,10 +55,9 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                         name="email"
                         minLength="10"
                         maxLength="50"
-                        placeholder={currentUser.email}
                         required
                         onChange={validation.handleChange}
-                        value={validation?.values?.email || ''}
+                        value={validation?.values?.email ?? currentUser.email}
                         pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                     />
                     <span className="profile__input-error">{email}</span>
@@ -74,7 +72,9 @@ function Profile({onUpdateUser, handleLogout, profileError}) {
                                ((validation?.values?.name !== currentUser.name) && name)
                             || ((validation?.values?.email !== currentUser.email) && email)
                             || (currentUser.name === validation?.values?.name && currentUser.email === validation?.values?.email)
-
+                            || (!validation?.values?.email && !validation?.values?.name)
+                            || (currentUser.name === validation?.values?.name && !validation?.values?.email)
+                            || (currentUser.email === validation?.values?.email && !validation?.values?.name)
                         }
                     >Редактировать</button>
                     <button
