@@ -7,20 +7,28 @@ import Portfolio from "./Portfolio/Portfolio"
 import Footer from "../Footer/Footer"
 
 import "./Main.css"
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import React from "react";
+import HeaderFilms from "../Header/HeaderFilms/HeaderFilms";
 
 function Main() {
-    return(
+    const currentUser = React.useContext(CurrentUserContext);
+    return (
         <>
-        <Header />
-        <main>
-            <Promo />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio />
-        </main>
-        <Footer />
-        </>  
+            {currentUser.loggedIn
+                ? (<HeaderFilms/>)
+                : (<Header/>)
+            }
+
+            <main>
+                <Promo/>
+                <AboutProject/>
+                <Techs/>
+                <AboutMe/>
+                <Portfolio/>
+            </main>
+            <Footer/>
+        </>
     );
 }
 

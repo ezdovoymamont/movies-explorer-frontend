@@ -22,7 +22,8 @@
     color: #FFFFFF;
 }
 
-.techs__container {}
+.techs__container {
+}
 
 .techs__tech {
     margin: 90px 0 26px;
@@ -44,7 +45,7 @@
     line-height: 20px;
     text-align: center;
     letter-spacing: -0.04em;
-    color: #FFFFFF; 
+    color: #FFFFFF;
 }
 
 .techs__links {
@@ -81,17 +82,17 @@
     color: #FFFFFF;
     transition: opacity .4s linear;
 }
-  
+
 .techs__link:hover {
     opacity: 0.8;
 }
 
 @media screen and (max-width: 1280px) {
     .techs__page {
-      width: calc(100% - 70px * 2);
+        width: calc(100% - 70px * 2);
     }
 }
-  
+
 @media screen and (max-width: 768px) {
     .techs__page {
         width: calc(100% - 30px * 2);
@@ -104,7 +105,7 @@
         margin-top: 50px;
     }
 }
-  
+
 @media screen and (max-width: 320px) {
     .techs__page {
         width: calc(100% - 10px * 2);
@@ -117,7 +118,7 @@
 
     .techs__text {
         font-size: 11px;
-        line-height: 16px; 
+        line-height: 16px;
     }
 
     .techs__link {

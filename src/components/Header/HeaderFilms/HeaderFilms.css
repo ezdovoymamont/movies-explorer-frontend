@@ -19,10 +19,11 @@
     width: 100%;
     /* margin: 0 auto; */
     max-width: 1140px;
-     /* justify-content: center;
-    align-content: center;  */
+    /* justify-content: center;
+   align-content: center;  */
 }
-.headerFilms_fill{
+
+.headerFilms_fill {
     margin-right: auto;
 }
 
@@ -44,18 +45,18 @@
 .headerMain__logo {
     display: inline-block;
     width: 40px;
-    height: 38px; 
+    height: 38px;
     background: url(../../../images/logo_header.svg) no-repeat;
     z-index: 2;
     margin-right: auto;
 }
-  
+
 .headerFilms__links {
     display: flex;
     list-style-type: none;
     margin: 0 0 0 44px;
     gap: 18px;
-    
+
     /* display: flex;
     list-style-type: none;
     margin: 0 0 0 44px;
@@ -64,18 +65,19 @@
     justify-content: center;
     width: 100%; */
 }
+
 .headerFilms__accountItem {
     /* margin-right: 0;
     align-content: flex-end; */
     /* display: flex;*/
     margin-left: auto;
-    align-self: flex-end; 
+    align-self: flex-end;
     display: flex;
     list-style-type: none;
 
 }
-  
- 
+
+
 .headerFilms__link {
     /* position: relative; */
     font-weight: 500;
@@ -88,14 +90,19 @@
     cursor: pointer;
 }
 
+.headerFilms__link_type_active {
+
+}
+
 .headerFilms__link-menu {
     display: none;
 }
 
+
 .headerFilms__link {
     opacity: 0.8;
 }
-  
+
 .headerFilms__account {
     display: block;
     border-radius: 20px;
@@ -130,6 +137,10 @@
     .menu-btn:checked ~ .headerFilmsMenu__container {
         max-width: 700px;
     }
+    .headerFilms__link_type_active {
+        border-bottom: 1px solid #FFFFFF;
+        padding-bottom: 4px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -137,9 +148,10 @@
     .menu-btn:checked ~ .headerFilmsMenu__container {
         max-width: 480px;
     }
+
     .headerFilms1 {
         width: calc(100% - 14px * 2);
-    } 
+    }
 }
 
 
@@ -152,7 +164,7 @@
     position: relative;
     user-select: none;
 }
-  
+
 
 .navicon {
     background: white;
@@ -161,25 +173,26 @@
     position: relative;
     transition: .2s ease-out;
     width: 18px;
-   
+
 }
 
 .navicon:before,
 .navicon:after {
-  background: white;
-  content: '';
-  display: block;
-  height: 100%;
-  position: absolute;
-  transition: all .2s ease-out;
-  width: 100%;
+    background: white;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all .2s ease-out;
+    width: 100%;
 }
 
 .navicon:before {
-  top: 5px;
+    top: 5px;
 }
+
 .navicon:after {
-  top: -5px;
+    top: -5px;
 }
 
 .menu-btn:checked ~ .menu-icon .navicon {
@@ -189,7 +202,7 @@
 .menu-btn:checked ~ .menu-icon .navicon:before {
     transform: rotate(-45deg);
 }
-  
+
 .menu-btn:checked ~ .menu-icon .navicon:after {
     transform: rotate(45deg);
 }
@@ -198,23 +211,23 @@
 .menu-btn:checked ~ .menu-icon .navicon:after {
     top: 0;
 }
-    
+
 .menu-btn {
     display: none;
 }
-  
+
 
 @media (min-width: 600px) {
 
     .menu-icon {
-      display: none;
+        display: none;
     }
 }
 
 @media screen and (max-width: 400px) {
 
     /* .headerFilms1 {
-      
+
     }  */
     .menu-btn:checked ~ .headerFilmsMenu__container {
         width: calc(100% + 40px * 2);
@@ -223,7 +236,7 @@
 
 @media screen and (max-width: 768px) {
 
-    .headerFilmsMenu__container {  
+    .headerFilmsMenu__container {
         position: fixed;
         display: none;
         flex-direction: column;
@@ -233,7 +246,7 @@
         box-sizing: border-box;
         width: 520px;
         right: 0;
-        top: 0;                         
+        top: 0;
         z-index: 2;
         height: 100%;
         box-sizing: border-box;
@@ -245,7 +258,7 @@
         z-index: 3;
         order: 3;
     }
-       
+
     .headerFilms__links {
         display: none;
         flex-direction: column;
@@ -253,13 +266,13 @@
         align-items: center;
         max-height: 0;
     }
-    
 
-    .menu-btn:checked ~ .headerFilmsMenu__container{
+
+    .menu-btn:checked ~ .headerFilmsMenu__container {
         display: flex;
     }
 
-    .menu-btn:checked ~ .headerFilmsMenu__container .headerFilms__links{
+    .menu-btn:checked ~ .headerFilmsMenu__container .headerFilms__links {
         display: flex;
     }
 
@@ -267,7 +280,7 @@
         display: flex;
     }
 
-    .headerFilms__link,.headerFilms__link-menu {
+    .headerFilms__link, .headerFilms__link-menu {
         font-weight: 500;
         font-style: normal;
         font-size: 18px;
@@ -284,7 +297,7 @@
         border-bottom: 1px solid #FFFFFF;
         padding-bottom: 4px;
     }
-  
+
     .headerFilms__account {
         position: absolute;
         left: 45%;
@@ -301,12 +314,12 @@
         font-size: 14px;
         line-height: 16px;
     }
-  
+
     .headerFilms__account:hover {
         opacity: 0.8;
-    } 
+    }
 }
-  
+
 
 
 

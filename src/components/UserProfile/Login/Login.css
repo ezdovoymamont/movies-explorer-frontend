@@ -8,15 +8,14 @@
 
 .login__header {
     height: 38px;
-    background: url(../../../images/logo_header.svg) no-repeat;
 }
 
 .login__form {
     margin: 0 auto 0;
     max-width: 396px;
     display: flex;
-	flex-direction: column;
-	width: 100%;
+    flex-direction: column;
+    width: 100%;
 }
 
 .login__title {
@@ -47,7 +46,7 @@
 .login__input {
     height: 32px;
     display: block;
-    margin-bottom: 24px;
+    margin-bottom: 6px;
     outline: none;
     border: none;
     border-bottom: 1px solid #424242;
@@ -73,7 +72,13 @@
 }
 
 .login__save-button:hover {
-	opacity: 0.8;
+    opacity: 0.8;
+}
+
+.login__save-button:disabled {
+    color: black;
+    background: gray;
+    pointer-events: none;
 }
 
 .login__input-error {
@@ -84,9 +89,6 @@
     font-size: 10px;
     line-height: 12px;
     color: #ee3465;
-    opacity: 0;
-    visibility: hidden;
-    overflow: hidden;
 }
 
 .block__register {
@@ -94,7 +96,7 @@
     justify-content: center;
 }
 
-.block__register-text {    
+.block__register-text {
     margin: 0 6px 0 0;
     font-weight: 400;
     font-size: 14px;
@@ -130,12 +132,12 @@
         margin: 0 auto 50px;
         width: 38px;
     }
-  
+
     .login__title {
         margin: 0 0 80px;
         text-align: center;
     }
-    
+
     .login__save-button {
         margin-bottom: 14px;
         font-size: 12px;
@@ -146,7 +148,7 @@
         display: flex;
         justify-content: center;
     }
-    
+
     .block__register-text {
         margin: 0 7px 0 0;
         font-size: 12px;

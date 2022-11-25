@@ -1,58 +1,81 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import {Link} from "react-router-dom";
 import "./Login.css";
-// import logo_header from "../../../images/logo_header.svg"
+import {useFormWithValidation} from "../../../utils/useFormWithValidation";
+import logo from "../../../images/logo_header.svg";
 
 
-function Login() {
+function Login({onLogin, loginError}) {
+    const validation = useFormWithValidation();
+    const {email, password} = validation.errors;
 
-  return (
-    <div className="login">
-      {/* <img src={logo_header} alt="Логотип" className="login__header" /> */}
-      <form className="login__form">
-        <header className="login__header"></header>
-        <h2 className="login__title">Рады видеть!</h2>
-        <label className="login__field">
-        <span className="login__label">E-mail</span>
-        <input
-          className="login__input"
-          minLength="10"
-          maxLength="50"
-          type="email"
-          name="email"
-          id="email"
-          required
-        />
-        <span className="login__input-error" />
-        </label>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const {email, password} = validation.values;
+        onLogin(email, password);
+        validation.resetForm();
+    };
 
-        <label className="login__field">
-        <span className="login__label">Пароль</span>
-        <input
-          className="login__input"
-          minLength="10"
-          maxLength="50"
-          type="password"
-          name="password"
-          id="password"
-          required
-        />
-        <span className="login__input-error" />
-        </label>
-        
-        <button type="submit" className="login__save-button">
-          Войти
-        </button>
-      </form>
+    return (
+        <div className="login">
+            <form className="login__form" onSubmit={handleSubmit}>
+                <header className="login__header">
+                    <Link className="" to="/">
+                      <img alt="Логотип сайта" src={logo}/>
+                    </Link>
+                </header>
+                <h2 className="login__title">Рады видеть!</h2>
+                <label className="login__field">
+                    <span className="login__label">E-mail</span>
+                    <input
+                        className="login__input"
+                        minLength="10"
+                        maxLength="50"
+                        type="email"
+                        name="email"
+                        id="email"
+                        required
+                        onChange={validation.handleChange}
+                        value={validation?.values?.email || ''}
+                        pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+                    />
+                    <span className="login__input-error">{email}</span>
+                </label>
 
-      <div className="block__register">
-        <p className="block__register-text">Еще не зарегистрированы?</p>
-        <Link to="/sign-up" className="block__register-link">
-          Регистрация
-        </Link>
-      </div>
-    </div>
-  );
+                <label className="login__field">
+                    <span className="login__label">Пароль</span>
+                    <input
+                        className="login__input"
+                        minLength="10"
+                        maxLength="50"
+                        type="password"
+                        name="password"
+                        id="password"
+                        required
+                        onChange={validation.handleChange}
+                        value={validation?.values?.password || ''}
+                    />
+                    <span className="login__input-error">{password}</span>
+                </label>
+                <span className="login__input-error">{loginError}</span>
+
+                <button
+                    type="submit"
+                    className="login__save-button"
+                    disabled={validation.isValid === false}
+                >
+                    Войти
+                </button>
+            </form>
+
+            <div className="block__register">
+                <p className="block__register-text">Еще не зарегистрированы?</p>
+                <Link to="/sign-up" className="block__register-link">
+                    Регистрация
+                </Link>
+            </div>
+        </div>
+    );
 }
 
 export default Login;

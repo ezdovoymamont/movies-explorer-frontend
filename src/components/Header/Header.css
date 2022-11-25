@@ -17,7 +17,7 @@
 .header__logo {
     display: inline-block;
     width: 40px;
-    height: 38px; 
+    height: 38px;
     background: url(../../images/logo_header.svg) no-repeat;
     z-index: 2;
 }
@@ -30,7 +30,7 @@
     padding: 0;
     gap: 30px;
 }
-  
+
 .header__register {
     align-items: center;
     font-weight: 500;
@@ -40,11 +40,11 @@
     color: #FFFFFF;
     transition: opacity 0.4s linear;
 }
-  
+
 .header__register:hover {
     opacity: 0.8;
 }
-  
+
 .header__login {
     padding: 8px 20px;
     font-weight: 500;
@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 1280px) {
     .header__container {
-      width: calc(100% - 70px * 2);
+        width: calc(100% - 70px * 2);
     }
 }
 
@@ -67,25 +67,25 @@
         width: calc(100% - 30px * 2);
     }
 }
-  
+
 @media screen and (max-width: 320px) {
     .header__container {
         width: calc(100% - 10px * 2);
     }
 
     .header__links {
-      gap: 14px;
+        gap: 14px;
     }
 
     .header__register {
-      font-size: 10px;
-      line-height: 16px;
+        font-size: 10px;
+        line-height: 16px;
     }
-  
+
     .header__login {
-      padding: 5px 12px;
-      font-size: 10px;
-      line-height: 16px;
+        padding: 5px 12px;
+        font-size: 10px;
+        line-height: 16px;
     }
-    
+
 }

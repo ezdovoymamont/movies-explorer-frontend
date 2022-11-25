@@ -46,8 +46,8 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
-    letter-spacing: -0.04em;   
-    color: #FFFFFF;   
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
 }
 
 .aboutProject__text {
@@ -90,6 +90,7 @@
     color: #FFFFFF;
     background: #303030;
 }
+
 .aboutProject__time-text {
     margin-top: 14px;
     font-style: normal;
@@ -102,10 +103,10 @@
 
 @media screen and (max-width: 1280px) {
     .aboutProject__page {
-      width: calc(100% - 70px * 2);
+        width: calc(100% - 70px * 2);
     }
 }
-  
+
 @media screen and (max-width: 851px) {
     .aboutProject__page {
         width: calc(100% - 30px * 2);
@@ -130,7 +131,7 @@
         font-size: 12px;
         line-height: 18px;
     }
-}  
+}
 
 @media screen and (max-width: 320px) {
     .aboutProject__page {

@@ -70,16 +70,16 @@
 
 @media screen and (max-width: 1280px) {
     .portfolio__page {
-      width: calc(100% - 70px * 2);
+        width: calc(100% - 70px * 2);
     }
 }
-  
+
 @media screen and (max-width: 768px) {
     .portfolio__page {
         width: calc(100% - 30px * 2);
     }
 }
-  
+
 @media screen and (max-width: 400px) {
     .portfolio__page {
         width: calc(100% - 10px * 2);
